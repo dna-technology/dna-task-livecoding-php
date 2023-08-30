@@ -12,8 +12,6 @@ use Illuminate\Support\Carbon;
  * @property string $fullName
  * @property string $email
  * @property string $merchantId
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
  * @method static Builder|User query()
  */
 class User extends Model
@@ -40,4 +38,6 @@ class User extends Model
     public $incrementing = true;
 
     protected $fillable = ['userId', 'fullName', 'email', 'merchantId'];
+
+    public $timestamps = false;
 }

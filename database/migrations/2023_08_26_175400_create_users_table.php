@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('fullName');
             $table->string('email')->unique();
             $table->string('merchantId');
-            $table->timestamps();
         });
     }
 

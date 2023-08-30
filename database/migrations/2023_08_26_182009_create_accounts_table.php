@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('accountId')->unique();
             $table->string('userId')->unique();
             $table->float('balance');
-            $table->timestamps();
         });
     }
 

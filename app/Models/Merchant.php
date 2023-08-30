@@ -10,8 +10,6 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property string $merchantId
  * @property string $name
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
  * @method static Builder|Merchant query()
  */
 class Merchant extends Model
@@ -38,4 +36,6 @@ class Merchant extends Model
      * @var bool
      */
     public $incrementing = true;
+
+    public $timestamps = false;
 }

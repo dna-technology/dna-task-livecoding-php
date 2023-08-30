@@ -12,8 +12,6 @@ use Illuminate\Support\Carbon;
  * @property string $userId
  * @property string $merchantId
  * @property float $amount
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
  * @method static Builder|Payment query()
  */
 class Payment extends Model
@@ -41,4 +39,6 @@ class Payment extends Model
      * @var bool
      */
     public $incrementing = true;
+
+    public $timestamps = false;
 }

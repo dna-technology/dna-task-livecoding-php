@@ -26,20 +26,13 @@ readonly class PaymentService
         $merchant = $this->merchantService->getMerchant($paymentDto->getMerchantId());
         $account = $this->accountService->getAccountForUser($paymentDto->getUserId());
 
-        DB::beginTransaction();
-
-        try {
-            if ($account->getBalance() < $paymentDto->getAmount()) {
-                throw new Exception("insufficient funds");
-            }
-
-            $this->accountService->decreaseBalance($account->getAccountId(), $paymentDto->getAmount());
-            $payment = $this->toPayment($paymentDto, $user, $merchant);
-            $payment->save();
-        } catch (Exception $e) {
-            DB::rollBack();
-            throw $e;
+        if ($account->getBalance() < $paymentDto->getAmount()) {
+            throw new Exception("insufficient funds");
         }
+
+        $this->accountService->decreaseBalance($account->getAccountId(), $paymentDto->getAmount());
+        $payment = $this->toPayment($paymentDto, $user, $merchant);
+        $payment->save();
 
         return $this->paymentToPaymentDto($payment);
     }

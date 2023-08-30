@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('userId')->unique();
             $table->string('merchantId')->unique();
             $table->float('amount');
-            $table->timestamps();
         });
     }
 

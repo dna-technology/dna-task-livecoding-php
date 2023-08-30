@@ -11,8 +11,6 @@ use Illuminate\Support\Carbon;
  * @property string $accountId
  * @property string $userId
  * @property float $balance
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
  * @method static Builder|Account query()
  */
 class Account extends Model
@@ -39,4 +37,6 @@ class Account extends Model
      * @var bool
      */
     public $incrementing = true;
+
+    public $timestamps = false;
 }
