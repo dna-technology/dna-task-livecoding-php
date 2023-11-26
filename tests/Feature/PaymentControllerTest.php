@@ -26,25 +26,23 @@ class PaymentControllerTest extends TestCase
     public function setUp(): void {
         parent::setUp();
 
-        $this->userService = $this->app->make('App\Services\UserService');
-        $this->merchantService = $this->app->make('App\Services\MerchantService');
-        $this->accountService = $this->app->make('App\Services\AccountService');
-
-        User::query()->delete();
-        Merchant::query()->delete();
-        Payment::query()->delete();
-        Account::query()->delete();
+        $this->userService = $this->app->make(UserService::class);
+        $this->merchantService = $this->app->make(MerchantService::class);
+        $this->accountService = $this->app->make(AccountService::class);
     }
 
-    private function thereIsMerchant(): string {
+    private function thereIsMerchant(): string
+    {
         $merchant = $this->merchantService->addMerchant('DNA');
+
         return $merchant->getMerchantId();
     }
 
     /**
      * @throws Exception
      */
-    private function thereIsUser(string $merchantId): string {
+    private function thereIsUser(string $merchantId): string
+    {
         $user = $this->userService->addUser(
             'Jan Kowalski',
             'jan.kowalski@digitalnewagency.com',
@@ -57,8 +55,10 @@ class PaymentControllerTest extends TestCase
     /**
      * @throws Exception
      */
-    private function userHasPositiveAccountBalance(string $userId): float {
+    private function userHasPositiveAccountBalance(string $userId): float
+    {
         $accountId = $this->accountService->getAccountForUser($userId)->getAccountId();
+
         return $this->accountService->increaseBalance($accountId, 100.0)->getBalance();
     }
 

@@ -13,18 +13,17 @@ use Tests\TestCase;
 class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
+
     private MerchantService $merchantService;
+
     public function setUp(): void {
         parent::setUp();
 
         $this->merchantService = $this->app->make('App\Services\MerchantService');
-
-        User::query()->delete();
-        Merchant::query()->delete();
-        Account::query()->delete();
     }
 
-    public function test_should_save_user() {
+    public function test_should_save_user()
+    {
         // given
         $merchantId = $this->thereIsMerchant();
         $fullName = 'John Doe';
@@ -52,7 +51,8 @@ class UserControllerTest extends TestCase
         self::assertNotNull($storedAccount->accountId);
     }
 
-    private function thereIsMerchant(): string {
+    private function thereIsMerchant(): string
+    {
         $merchant = $this->merchantService->addMerchant('DNA');
         return $merchant->getMerchantId();
     }

@@ -7,7 +7,7 @@ use App\Http\Resources\PaymentDto;
 use App\Http\Resources\UserDto;
 use App\Models\Payment;
 use Exception;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Collection;
 use Ramsey\Uuid\Uuid;
 
 readonly class PaymentService
@@ -21,13 +21,14 @@ readonly class PaymentService
     /**
      * @throws Exception
      */
-    public function addPayment(PaymentDto $paymentDto): PaymentDto {
+    public function addPayment(PaymentDto $paymentDto): PaymentDto
+    {
         $user = $this->userService->getUser($paymentDto->getUserId());
         $merchant = $this->merchantService->getMerchant($paymentDto->getMerchantId());
         $account = $this->accountService->getAccountForUser($paymentDto->getUserId());
 
         if ($account->getBalance() < $paymentDto->getAmount()) {
-            throw new Exception("insufficient funds");
+            throw new Exception('insufficient funds');
         }
 
         $this->accountService->decreaseBalance($account->getAccountId(), $paymentDto->getAmount());
@@ -37,7 +38,15 @@ readonly class PaymentService
         return $this->paymentToPaymentDto($payment);
     }
 
-    private function paymentToPaymentDto(Payment $payment): PaymentDto {
+    public function getByDatePeriod(string $merchantId, string $min, string $max): Collection
+    {
+        return Payment::where('merchantId', $merchantId)
+            ->whereBetween('createdAt', [$min, $max])
+            ->get();
+    }
+
+    private function paymentToPaymentDto(Payment $payment): PaymentDto
+    {
         return new PaymentDto(
             $payment->paymentId,
             $payment->userId,

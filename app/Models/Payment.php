@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
@@ -16,6 +15,8 @@ use Illuminate\Support\Carbon;
  */
 class Payment extends Model
 {
+    public const CREATED_AT = 'createdAt';
+    public const UPDATED_AT = null;
 
     /**
      * The table associated with the model.
@@ -24,21 +25,5 @@ class Payment extends Model
      */
     protected $table = 'payments';
 
-    /**
-     * The primary key associated with the table.
-     *
-     * @var int
-     */
-    protected $primaryKey = 'id';
-
     protected $fillable = ['paymentId', 'userId', 'merchantId', 'amount'];
-
-    /**
-     * Indicates if the model's ID is auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = true;
-
-    public $timestamps = false;
 }

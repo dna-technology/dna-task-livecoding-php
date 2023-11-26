@@ -7,16 +7,12 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Tests\TestCase;
 
-class MerchantControllerTest extends TestCase {
+class MerchantControllerTest extends TestCase
+{
     use RefreshDatabase;
 
-    public function setUp(): void {
-        parent::setUp();
-
-        Merchant::query()->delete();
-    }
-
-    public function test_should_create_merchant() {
+    public function test_should_create_merchant()
+    {
         // given
         $merchantName = 'DNA';
         $payload = ['name' => $merchantName];
