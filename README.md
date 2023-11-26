@@ -1,10 +1,7 @@
 # How should I start
 1. install required dependencies by running the `composer install` command
-2. run tests by executing the `./vendor/bin/phpunit` command
-3. for general simplicity the app uses the same sqlite file as the tests. 
-As a result there's no need to migrate the database once the tests have been executed.
-However, in case of any difficulties, the `php artisan migrate` and `php artisan migrate:rollback`
-commands could be executed.
+2. run `php artisan migrate` to set up the database schema
+3. run tests by executing the `./artisan test` command
 4. run the `php artisan serve` command to see whether the server starts
 
 ## Scenario
